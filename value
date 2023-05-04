@@ -1,0 +1,20 @@
+ * Copyright (c) 2015 TechnologyAdvice
+ */
+/* eslint no-console: 0, consistent-return: 0 */
+const dot = require('dot-object')
+const jexl = require('jexl')
+const plugins = require('./plugins')
+const cloneDeep = require('lodash/cloneDeep')
+
+const validators = {
+  /**
+   * Validator default method, used by model
+   * @param {Object} def The property configuration
+   * @param {*} value The value being validated
+   */
+  default: function(def, value) {
+    if (/^(number|boolean)$/.test(def.type)) {
+      if (value === 0 || value === false) return value
+    }
+    return value || cloneDeep(def.default)
+  },
